@@ -230,6 +230,63 @@ export const Glyph: React.FC<{name: string; size: number; color?: string; stroke
 		case 'check':
 			g = <path d="M50 104 L86 140 L152 64" {...p} />;
 			break;
+		case 'user':
+			g = (
+				<>
+					<circle cx="100" cy="74" r="34" {...p} />
+					<path d="M38 168 C42 128 70 114 100 114 S158 128 162 168" {...p} />
+				</>
+			);
+			break;
+		case 'whatsapp':
+			g = (
+				<>
+					<path d="M100 26 A74 74 0 1 1 52 156 L26 174 L38 138 A74 74 0 0 1 100 26 Z" {...p} />
+					<path
+						d="M74 66 C66 66 62 76 64 86 C70 112 90 132 116 138 C126 140 136 136 136 128 L136 118 L116 110 L108 120 C96 114 86 104 80 92 L90 84 L82 64 Z"
+						fill={color}
+						stroke={color}
+						strokeWidth={stroke * 0.4}
+						strokeLinejoin="round"
+					/>
+				</>
+			);
+			break;
+		case 'clock':
+			g = (
+				<>
+					<circle cx="100" cy="100" r="70" {...p} />
+					<path d="M100 56 V100 L132 118" {...p} />
+				</>
+			);
+			break;
+		case 'infinity':
+			g = <path d="M100 100 C80 62 30 62 30 100 C30 138 80 138 100 100 C120 62 170 62 170 100 C170 138 120 138 100 100 Z" {...p} />;
+			break;
+		case 'template':
+			g = (
+				<>
+					<path d="M50 24 H124 L154 54 V176 H50 Z" {...p} />
+					<path d="M74 82 H130 M74 108 H130 M74 134 H108" {...p} strokeWidth={stroke * 0.8} />
+				</>
+			);
+			break;
+		case 'inbox':
+			g = (
+				<>
+					<path d="M30 110 L56 40 H144 L170 110 V164 H30 Z" {...p} />
+					<path d="M30 110 H74 L84 132 H116 L126 110 H170" {...p} />
+				</>
+			);
+			break;
+		case 'send':
+			g = (
+				<>
+					<path d="M24 98 L176 30 L132 172 L98 116 Z" {...p} />
+					<path d="M98 116 L176 30" {...p} />
+				</>
+			);
+			break;
 		default:
 			g = null;
 	}
@@ -241,10 +298,16 @@ export const Glyph: React.FC<{name: string; size: number; color?: string; stroke
 };
 
 /* ---------- Crimson squircle tile with cream rim ---------- */
-export const Tile: React.FC<{size: number; icon: string; tilt?: number; children?: React.ReactNode}> = ({
+const TILE_FILL: Record<string, string> = {
+	crimson: `linear-gradient(155deg, ${C.crimsonHi} 0%, ${C.crimson} 45%, #8f0f16 100%)`,
+	green: `linear-gradient(155deg, #2DB866 0%, ${C.green} 45%, #137a3e 100%)`,
+};
+
+export const Tile: React.FC<{size: number; icon: string; tilt?: number; color?: 'crimson' | 'green'; children?: React.ReactNode}> = ({
 	size,
 	icon,
 	tilt = 0,
+	color = 'crimson',
 	children,
 }) => (
 	<div style={{width: size, height: size, transform: `rotate(${tilt}deg)`, filter: TILE_SHADOW}}>
@@ -253,7 +316,7 @@ export const Tile: React.FC<{size: number; icon: string; tilt?: number; children
 				width: size,
 				height: size,
 				borderRadius: '22%',
-				background: `linear-gradient(155deg, ${C.crimsonHi} 0%, ${C.crimson} 45%, #8f0f16 100%)`,
+				background: TILE_FILL[color],
 				border: `${size * 0.035}px solid ${C.cream}`,
 				boxSizing: 'border-box',
 				boxShadow: `inset 0 ${size * 0.03}px 0 rgba(255,255,255,.18), inset 0 -${size * 0.04}px ${size * 0.05}px rgba(0,0,0,.25)`,
