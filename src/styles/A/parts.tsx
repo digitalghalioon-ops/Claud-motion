@@ -279,6 +279,31 @@ export const Glyph: React.FC<{name: string; size: number; color?: string; stroke
 				</>
 			);
 			break;
+		case 'camera':
+			g = (
+				<>
+					<path d="M30 66 H64 L78 46 H122 L136 66 H170 A10 10 0 0 1 180 76 V154 A10 10 0 0 1 170 164 H30 A10 10 0 0 1 20 154 V76 A10 10 0 0 1 30 66 Z" {...p} />
+					<circle cx="100" cy="114" r="30" {...p} />
+				</>
+			);
+			break;
+		case 'sun':
+			g = (
+				<>
+					<circle cx="100" cy="100" r="36" {...p} />
+					{Array.from({length: 8}, (_, i) => {
+						const a = (i / 8) * Math.PI * 2;
+						return (
+							<path
+								key={i}
+								d={`M${100 + Math.cos(a) * 56} ${100 + Math.sin(a) * 56} L${100 + Math.cos(a) * 80} ${100 + Math.sin(a) * 80}`}
+								{...p}
+							/>
+						);
+					})}
+				</>
+			);
+			break;
 		case 'send':
 			g = (
 				<>
